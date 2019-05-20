@@ -1,7 +1,7 @@
-Êı¾İ¿â£º sql server
+æ•°æ®åº“ï¼š sql server
 
-sharedBike.sql     ´´½¨±íµÄsql
-createView.sql     ´´½¨ÓÃ»§ĞÅÏ¢viewµÄsql
-Bike.sql                µ¼Èë³õÊ¼³µÁ¾ĞÅÏ¢µÄsql
-powerdesigner    Êı¾İ¿âÉè¼ÆÏà¹ØÎÄ¼ş
+sharedBike.sql     åˆ›å»ºè¡¨
+createView.sql     åˆ›å»ºè§†å›¾
+Bike.sql           å¯¼å…¥è½¦è¾†ä¿¡æ¯
+powerdesigner      æ•°æ®åº“è®¾è®¡
 
