@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="repair page">
+    <meta name="author" content="Chaofan Yang">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico')}}">
+
+    <title>BikeFree</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/navbar.css')}}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ url_for('static', filename='js/ie-emulation-modes-warning.js')}}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../static/js/html5shiv.min.js"></script>
+      <script src="../static/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+      function submitContent() {
+        var a = document.getElementById('BB').value;
+        var b = document.getElementById('RC').value;
+        if (a != "" && b != "")
+          alert("报修成功！感谢你对BikeFree的支持！");
+      }
+    </script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">B i k e F r e e</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{{ url_for('biking')}}">骑 行</a></li>
+              <li class="active"><a href="#">报 修</a></li>
+              <li><a href="{{ url_for('userInfo')}}">个 人 信 息</a></li>
+              <li><a href="{{ url_for('deposit')}}">钱包</a></li>
+              <li><a href="{{ url_for('homepage')}}">退 出 登 录</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="row featurette">
+        <div class="col-md-6">
+          <div class="jumbotron">
+              <div class="container">
+                
+                <form class="form-horizontal" style="height:370px" method="POST"> 
+                    <fieldset>
+                      <div id="legend" class="">
+                        <legend class="">报修</legend>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">车牌号</label>
+                        <div class="controls">
+                          <input name="bikeNum" id="BB" type="text" placeholder="000000" class="form-control" style="width:180px"
+                             onkeyup="if(!/^\d+$/.test(this.value)) {this.value=this.value.replace(/[^\d]+/g,'');}" / required autofocus>
+                          <p class="help-block"></p>
+                        </div>
+                      </div>
+     
+                      <div class="control-group">
+                        <!-- Textarea -->
+                        <label class="control-label">报修内容(不超过40字)</label>
+                        <div class="controls">
+                          <div class="textarea">
+                                <textarea name="content" id="RC" type="text" maxlength="80" class="form-control" rows="7" cols="50" style="resize:none" required></textarea>
+                          </div>
+                        </div>
+                      </div>
+                  
+                      <div class="control-group">
+                        <label class="control-label"></label>
+                        <!-- Button -->
+                        <div class="controls">
+                          <button class="btn btn-primary" type="submit" onclick="submitContent()">提交</button>
+                        </div>
+                      </div>
+                
+                    </fieldset>
+                  </form>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <img class="img" src="{{ url_for('static', filename='images/repair.png')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static', filename='js/ie10-viewport-bug-workaround.js')}}"></script>
+  </body>
+</html>

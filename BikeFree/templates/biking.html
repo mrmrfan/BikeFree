@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="biking page">
+    <meta name="author" content="Chaofan Yang">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico')}}">
+
+    <title>BikeFree</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/navbar.css')}}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ url_for('static', filename='js/ie-emulation-modes-warning.js')}}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../static/js/html5shiv.min.js"></script>
+      <script src="../static/js/respond.min.js"></script>
+    <![endif]-->
+
+    <script type="text/javascript">
+      function startCycling(){
+        var BN = document.getElementById('BN');
+        var ST = document.getElementById('ST');
+        if (BN.value=="")
+          alert("请输入车牌号！");
+        else {
+          var myDate = new Date();
+          var mytime=myDate.toLocaleString('chinese', { hour12: false });
+          var str="骑行开始！\n车牌号： "+BN.value+"\n开始时间： "+mytime;
+          BN.readOnly=true;
+          ST.value=mytime;
+          alert(str);
+        }
+      }
+
+      function getMoney(startTime, endTime){
+        var datadiff=(endTime.getTime()-startTime.getTime())/60000;
+          return datadiff*0.1;
+      }
+
+      function finishCycling(){
+        var BN = document.getElementById('BN');
+        var ST = document.getElementById('ST');
+        var ET = document.getElementById('ET');
+        var M = document.getElementById('M');
+        var str="骑行结束！\n车牌号： "+BN.value+"\n开始时间： "+ST.value;
+        var myDate=new Date();
+        var mytime=myDate.toLocaleString('chinese', { hour12: false });
+        ET.value=mytime;
+        M.value=getMoney(new Date(ST.value), new Date(mytime)).toFixed(2);
+        str+="\n结束时间： "+mytime+"\n最终费用： "+M.value;
+        alert(str);
+      }
+    </script>
+
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">B i k e F r e e</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="#">骑 行</a></li>
+              <li><a href="{{ url_for('repair')}}">报 修</a></li>
+              <li><a href="{{ url_for('userInfo')}}">个 人 信 息</a></li>
+              <li><a href="{{ url_for('deposit')}}">钱包</a></li>
+              <li><a href="{{ url_for('homepage')}}">退 出 登 录</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="row featurette">
+        <div class="col-md-6">
+          <div class="jumbotron">
+              <div class="container">
+                <form class="form-horizontal" style="height:370px" method="POST">
+                    <fieldset>
+                      <div id="legend" class="">
+                        <legend class="">骑行</legend>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Text input-->  
+                        <label class="control-label" for="input01">车牌号</label>
+                        <div class="controls">
+                        <div class="controls">
+                          <input name="bikeNum" id="BN" type="text" placeholder="000000" class="form-control" style="width:220px" 
+                            onkeyup="if(!/^\d+$/.test(this.value)) {this.value=this.value.replace(/[^\d]+/g,'');}" / required autofocus>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">开始时间</label>
+                        <div class="controls">
+                          <input name="startTime" id="ST" type="text" placeholder="00:00:00" class="form-control" style="width:220px" readonly=true required>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">结束时间</label>
+                        <div class="controls">
+                          <input name="endTime" id="ET" type="text" placeholder="23:59:59" class="form-control" style="width:220px" readonly=true required>
+                          <p class="help-block"></p>
+                        </div>
+                      </div>
+
+                      <div class="control-group">
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">最终费用</label>
+                        <div class="controls">
+                          <input name="money" id="M" type="text" placeholder="0.00" class="form-control" style="width:220px" readonly=true required>
+                          <p class="help-block"></p>
+                      </div>
+                      
+                      <div class="container">
+                        <div class="col-md-3">
+                            <input class="btn btn-primary"  type="button" onclick="startCycling()" id="B1" value="开始骑行"> 
+                        </div>
+                        <div class="col-md-1">
+                            <input class="btn btn-primary" type="submit" onclick="finishCycling()" id="B2" value="结束骑行"> 
+                        </div>
+                      </div>  
+                      
+
+
+                    </fieldset>
+                  </form>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <img class="img" src="{{ url_for('static', filename='images/bike.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static', filename='js/ie10-viewport-bug-workaround.js')}}"></script>
+  </body>
+</html>

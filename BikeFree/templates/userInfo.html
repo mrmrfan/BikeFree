@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="userInfo page">
+    <meta name="author" content="Chaofan Yang">
+    <link rel="icon" href="{{ url_for('static', filename='images/favicon.ico')}}">
+
+    <title>BikeFree</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{ url_for('static', filename='css/bootstrap.min.css')}}" rel="stylesheet">
+
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <link href="{{ url_for('static', filename='css/ie10-viewport-bug-workaround.css')}}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{{ url_for('static', filename='css/navbar.css')}}" rel="stylesheet">
+
+    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
+    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+    <script src="{{ url_for('static', filename='js/ie-emulation-modes-warning.js')}}"></script>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="../static/js/html5shiv.min.js"></script>
+      <script src="../static/js/respond.min.js"></script>
+    <![endif]-->
+
+  <script type="text/javascript">
+    function contentSubmit() {
+        alert("个人信息修改成功！");
+    }
+  </script>
+  </head>
+
+  <body>
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">B i k e F r e e</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="{{ url_for('biking')}}">骑 行</a></li>
+              <li><a href="{{ url_for('repair')}}">报 修</a></li>
+              <li class="active"><a href="#">个 人 信 息</a></li>
+              <li><a href="{{ url_for('deposit')}}">钱包</a></li>
+              <li><a href="{{ url_for('homepage')}}">退 出 登 录</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
+
+      <!-- Main component for a primary marketing message or call to action -->
+      <div class="row featurette">
+        <div class="col-md-6">
+          <div class="jumbotron">
+              <div class="container">
+                <form class="form-horizontal" style="height:370px" method="POST">
+                    <fieldset>
+                      <div id="legend" class="">
+                        <legend class="">个人信息</legend>
+                      </div>
+
+                    <div class="control-group">
+                      <!-- Text input-->
+                      <label class="control-label" for="input01">用户名</label>
+                      <div class="controls">
+                        <input name="username" id="UN" value="{{username}}" type="text" class="form-control" style="width:180px" disabled>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                        <!-- Text input-->
+                        <label class="control-label" for="input01">性别</label>
+                        <div class="controls">
+                          {% if sex %}
+                          <input name="sex" id="S" value="{{sex}}" type="text" maxlength="2" class="form-control" style="width:180px">
+                          {% else %}
+                          <input name="sex" id="S" value="" type="text" maxlength="2" class="form-control" style="width:180px">
+                          {% endif %}
+                        </div>
+                      </div>
+                
+                    <div class="control-group">
+                      <!-- Text input-->
+                      <label class="control-label" for="input01">手机号</label>
+                      <div class="controls">
+                        {% if phoneNum %}
+                        <input name="phoneNum" id="PN" value="{{phoneNum}}" type="text" class="form-control" 
+                          onkeyup="if(!/^\d+$/.test(this.value)) {this.value=this.value.replace(/[^\d]+/g,'');}" / style="width:180px">
+                        {% else %}
+                        <input name="phoneNum" id="PN" value="" type="text" class="form-control"
+                          onkeyup="if(!/^\d+$/.test(this.value)) {this.value=this.value.replace(/[^\d]+/g,'');}" / style="width:180px">
+                        {% endif %}
+                        <p class="help-block"></p>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                      <!-- Text input-->
+                      <label class="control-label" for="input01">总骑行次数</label>
+                      <div class="controls">
+                        <input name="totalBiking" id="TB" value="{{totalBiking}}" type="text" class="form-control" style="width:180px" disabled=true>
+                      </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label"></label>
+                        <!-- Button -->
+                        <div class="controls">
+                          <button class="btn btn-primary" type="submit" onclick="contentSubmit()">修改信息</button>
+                        </div>
+                    </div>
+                  </fieldset>
+                  </form>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <img class="img" src="{{ url_for('static', filename='images/user.jpg')}}" alt="Generic placeholder image">
+        </div>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{{ url_for('static',filename='js/ie10-viewport-bug-workaround.js')}}"></script>
+  </body>
+</html>
